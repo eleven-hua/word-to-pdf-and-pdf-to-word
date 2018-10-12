@@ -1,14 +1,14 @@
 import os
 from win32com import client
-def doc2pdf(filepath,testfile):
+def doc2pdf(wordpath,pdfpath):
     # testfile = "C:\\Users\Administrator\Desktop\pdf"
-    for root,dirs,files in os.walk(filepath,topdown=False):#遍历文件夹
+    for root,dirs,files in os.walk(wordpath,topdown=False):#遍历文件夹
         for name in files:
             doc_name = os.path.join(root,name)
             # pdf_name = doc_name.split('.docx',)[0] + '.pdf'
             (filename,extension) = os.path.splitext(name)#filename文件名，extension后缀名
             #pdf_name为pdf文件名，此处不加.pdf也可以，但是word名中有‘.’的时候会发生转化失败
-            pdf_name = os.path.join(testfile,filename)+'.pdf'
+            pdf_name = os.path.join(pdfpath,filename)+'.pdf'
             print(pdf_name)
             try:
                 word = client.DispatchEx('Word.Application')
@@ -24,6 +24,6 @@ def doc2pdf(filepath,testfile):
                 print("error")
                 return 1
 if __name__ == '__main__':
-    filepath = "C:\\Users\Administrator\Desktop\word"#word存放路径
-    testfile = "C:\\Users\Administrator\Desktop\pdf"#word转PDF后存放路径
-    doc2pdf(filepath,testfile)
+    wordpath = "C:\\Users\Administrator\Desktop\word"#word存放路径
+    pdfpath = "C:\\Users\Administrator\Desktop\pdf"#word转PDF后存放路径
+    doc2pdf(wordpath,pdfpath)
